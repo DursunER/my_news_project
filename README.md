@@ -38,7 +38,7 @@ From github you can make a pull request and share the link and ticket number via
 
 Once a pull request been accepted be sure to switch back to the main branch and pull down the updated changes.
 
-```
+```?
 git checkout main
 
 git pull origin main
