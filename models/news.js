@@ -1,6 +1,10 @@
-
-
 const db = require("../db/connection");
+
+exports.getTopics = () => {
+  return db.query(`SELECT * FROM topics `).then((topics) => {
+    return topics.rows;
+  });
+};
 
 exports.getArticlesById = (id) => {
   if (isNaN(id)) {
@@ -20,12 +24,8 @@ exports.getArticlesById = (id) => {
     });
 };
 
-exports.getTopics = () => {
-    
-    return db.query(`SELECT * FROM topics `).then((topics) => {
-       
-        return topics.rows
-    })
-
-}
-
+exports.getUsers = () => {
+  return db.query(`SELECT * FROM users `).then((users) => {
+    return users.rows;
+  });
+};
