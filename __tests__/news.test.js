@@ -11,6 +11,46 @@ afterAll(() => {
 });
 
 describe("GET", () => {
+
+  it("/api/articles/:article_id", () => {
+    return request(app)
+      .get("/api/articles/3")
+      .expect(200)
+      .then((res) => {
+        const article_3 = {
+          article_id: 3,
+          title: "Eight pug gifs that remind me of mitch",
+          topic: "mitch",
+          author: "icellusedkars",
+          body: "some gifs",
+          created_at: "2020-11-03T09:12:00.000Z",
+          votes: 0,
+        };
+
+        const articleObj = res.body.article;
+
+        expect(articleObj).toEqual(article_3);
+      });
+  });
+  it("/api/articles/:article_id", () => {
+    return request(app)
+      .get("/api/articles/1000")
+      .expect(404)
+      .then((res) => {
+        const msg = res.body.err;
+        expect(msg).toBe("Article id not found");
+      });
+  });
+
+  it("/api/articles/:article_id", () => {
+    return request(app)
+      .get("/api/articles/cat")
+      .expect(400)
+      .then((res) => {
+        const msg = res.body.err;
+
+        expect(msg).toBe("Not an Article ID. Please enter numeric value.");
+
   it("/api/topics", () => {
     return request(app)
       .get("/api/topics")
@@ -25,6 +65,7 @@ describe("GET", () => {
           expect(topic).toHaveProperty("slug", expect.any(String));
           expect(topic).toHaveProperty("description", expect.any(String));
         });
+
       });
   });
 });
