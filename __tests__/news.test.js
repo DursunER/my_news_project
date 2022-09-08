@@ -28,7 +28,7 @@ describe("GET", () => {
 
         const articleObj = res.body.article;
 
-        expect(articleObj[0]).toEqual(article_3);
+        expect(articleObj).toEqual(article_3);
       });
   });
   it("/api/articles/:article_id", () => {

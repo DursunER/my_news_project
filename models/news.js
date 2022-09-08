@@ -15,6 +15,6 @@ exports.getArticlesById = (id) => {
         return Promise.reject({ status: 404, msg: "Article id not found" });
       }
 
-      return article.rows;
+      return article.rows[0];
     });
 };
