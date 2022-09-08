@@ -26,9 +26,9 @@ describe("GET", () => {
           votes: 0,
         };
 
-        const articleObj = res.body.article[0];
+        const articleObj = res.body.article;
 
-        expect(articleObj).toEqual(article_3);
+        expect(articleObj[0]).toEqual(article_3);
       });
   });
   it("/api/articles/:article_id", () => {
@@ -36,10 +36,19 @@ describe("GET", () => {
       .get("/api/articles/1000")
       .expect(404)
       .then((res) => {
-        const status = res.status;
         const msg = res.body.err;
-        expect(status).toBe(404);
         expect(msg).toBe("Article id not found");
+      });
+  });
+
+  it("/api/articles/:article_id", () => {
+    return request(app)
+      .get("/api/articles/cat")
+      .expect(400)
+      .then((res) => {
+        const msg = res.body.err;
+
+        expect(msg).toBe("Not an Article ID. Please enter numeric value.");
       });
   });
 });
