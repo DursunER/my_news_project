@@ -1,4 +1,5 @@
-const { promises } = require("graceful-fs");
+
+
 const db = require("../db/connection");
 
 exports.getArticlesById = (id) => {
@@ -18,3 +19,13 @@ exports.getArticlesById = (id) => {
       return article.rows[0];
     });
 };
+
+exports.getTopics = () => {
+    
+    return db.query(`SELECT * FROM topics `).then((topics) => {
+       
+        return topics.rows
+    })
+
+}
+

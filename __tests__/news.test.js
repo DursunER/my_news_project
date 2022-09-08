@@ -11,6 +11,7 @@ afterAll(() => {
 });
 
 describe("GET", () => {
+
   it("/api/articles/:article_id", () => {
     return request(app)
       .get("/api/articles/3")
@@ -49,6 +50,22 @@ describe("GET", () => {
         const msg = res.body.err;
 
         expect(msg).toBe("Not an Article ID. Please enter numeric value.");
+
+  it("/api/topics", () => {
+    return request(app)
+      .get("/api/topics")
+      .expect(200)
+      .then((response) => {
+        const { topics } = response.body;
+
+        expect(Array.isArray(topics)).toBe(true);
+        expect(topics.length === 3).toBe(true);
+
+        topics.forEach((topic) => {
+          expect(topic).toHaveProperty("slug", expect.any(String));
+          expect(topic).toHaveProperty("description", expect.any(String));
+        });
+
       });
   });
 });

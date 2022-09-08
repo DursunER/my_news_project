@@ -1,3 +1,5 @@
+
+const { getTopics } = require("../models/news");
 const { getArticlesById } = require("../models/news");
 
 exports.readArticlesById = (req, res, next) => {
@@ -10,4 +12,10 @@ exports.readArticlesById = (req, res, next) => {
     .catch((err) => {
       next(err);
     });
+
+exports.readTopics = (req, res) => {
+  getTopics().then((topics) => {
+    res.status(200).send({ topics: topics });
+  });
+
 };
