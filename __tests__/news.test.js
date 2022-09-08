@@ -77,6 +77,8 @@ describe("GET", () => {
       .then((res) => {
         const userList = res.body.users;
 
+        expect(userList.length > 0).toBe(true);
+
         userList.forEach((user) => {
           expect(user).toHaveProperty("username");
           expect(user).toHaveProperty("name");
