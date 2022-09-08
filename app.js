@@ -1,16 +1,18 @@
-
 const express = require("express");
-const { readArticlesById } = require("./controllers/news");
-const { readTopics } = require('./controllers/news');
+const {
+  readTopics,
+  readArticlesById,
+  readUsers,
+} = require("./controllers/news");
 
 const app = express();
-
-app.get('/api/topics', readTopics);
+console;
+app.get("/api/topics", readTopics);
 app.get("/api/articles/:article_id", readArticlesById);
+app.get("/api/users", readUsers);
 
-app.all('/*', (req, res) => {
-  res.status(404).send({ msg: 'Route not found' });
-
+app.all("/*", (req, res) => {
+  res.status(404).send({ msg: "Route not found" });
 });
 
 app.use((err, req, res, next) => {
@@ -24,4 +26,3 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
-

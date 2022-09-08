@@ -11,8 +11,24 @@ afterAll(() => {
 });
 
 describe("GET", () => {
+  test("/api/topics", () => {
+    return request(app)
+      .get("/api/topics")
+      .expect(200)
+      .then((response) => {
+        const { topics } = response.body;
 
-  it("/api/articles/:article_id", () => {
+        expect(Array.isArray(topics)).toBe(true);
+        expect(topics.length === 3).toBe(true);
+
+        topics.forEach((topic) => {
+          expect(topic).toHaveProperty("slug", expect.any(String));
+          expect(topic).toHaveProperty("description", expect.any(String));
+        });
+      });
+  });
+
+  test("/api/articles/:article_id", () => {
     return request(app)
       .get("/api/articles/3")
       .expect(200)
@@ -32,7 +48,8 @@ describe("GET", () => {
         expect(articleObj).toEqual(article_3);
       });
   });
-  it("/api/articles/:article_id", () => {
+
+  test("/api/articles/:article_id", () => {
     return request(app)
       .get("/api/articles/1000")
       .expect(404)
@@ -42,7 +59,7 @@ describe("GET", () => {
       });
   });
 
-  it("/api/articles/:article_id", () => {
+  test("/api/articles/:article_id", () => {
     return request(app)
       .get("/api/articles/cat")
       .expect(400)
@@ -50,22 +67,21 @@ describe("GET", () => {
         const msg = res.body.err;
 
         expect(msg).toBe("Not an Article ID. Please enter numeric value.");
+      });
+  });
 
-  it("/api/topics", () => {
+  test("/api/users", () => {
     return request(app)
-      .get("/api/topics")
+      .get("/api/users")
       .expect(200)
-      .then((response) => {
-        const { topics } = response.body;
+      .then((res) => {
+        const userList = res.body.users;
 
-        expect(Array.isArray(topics)).toBe(true);
-        expect(topics.length === 3).toBe(true);
-
-        topics.forEach((topic) => {
-          expect(topic).toHaveProperty("slug", expect.any(String));
-          expect(topic).toHaveProperty("description", expect.any(String));
+        userList.forEach((user) => {
+          expect(user).toHaveProperty("username");
+          expect(user).toHaveProperty("name");
+          expect(user).toHaveProperty("avatar_url");
         });
-
       });
   });
 });
