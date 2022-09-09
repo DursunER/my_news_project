@@ -28,7 +28,7 @@ describe("GET", () => {
       });
   });
 
-  test("/api/articles/:article_id", () => {
+  test("/api/articles/:article_Id", () => {
     return request(app)
       .get("/api/articles/3")
       .expect(200)
@@ -49,7 +49,7 @@ describe("GET", () => {
       });
   });
 
-  test("/api/articles/:article_id", () => {
+  test("/api/articles/:article_Id", () => {
     return request(app)
       .get("/api/articles/1000")
       .expect(404)
@@ -59,7 +59,7 @@ describe("GET", () => {
       });
   });
 
-  test("/api/articles/:article_id", () => {
+  test("/api/articles/:article_Id", () => {
     return request(app)
       .get("/api/articles/cat")
       .expect(400)
@@ -84,6 +84,28 @@ describe("GET", () => {
           expect(user).toHaveProperty("name");
           expect(user).toHaveProperty("avatar_url");
         });
+      });
+  });
+
+  test("/api/articles/:article_Id", () => {
+    return request(app)
+      .patch("/api/articles/5")
+      .send({ inc_votes: 1 })
+      .expect(200)
+      .then((res) => {
+        const article_5 = {
+          article_id: 5,
+          title: "UNCOVERED: catspiracy to bring down democracy",
+          topic: "cats",
+          author: "rogersop",
+          body: "Bastet walks amongst us, and the cats are taking arms!",
+          created_at: "2020-08-03T13:14:00.000Z",
+          votes: 1,
+        };
+
+        const articleObj = res.body.article;
+
+        expect(articleObj).toEqual(article_5);
       });
   });
 });
