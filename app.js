@@ -5,8 +5,11 @@ const {
   readUsers,
 } = require("./controllers/news");
 
+const cors = require("cors");
+
 const app = express();
-console;
+app.use(cors());
+
 app.get("/api/topics", readTopics);
 app.get("/api/articles/:article_id", readArticlesById);
 app.get("/api/users", readUsers);
