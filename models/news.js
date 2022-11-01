@@ -29,3 +29,9 @@ exports.getUsers = () => {
     return users.rows;
   });
 };
+
+exports.getArticles = () => {
+  return db.query(`SELECT * FROM articles `).then((articles) => {
+    return articles.rows;
+  });
+};

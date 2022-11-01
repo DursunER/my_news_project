@@ -3,6 +3,7 @@ const {
   readTopics,
   readArticlesById,
   readUsers,
+  readArticles,
 } = require("./controllers/news");
 
 const cors = require("cors");
@@ -10,6 +11,7 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 
+app.get("/api/articles", readArticles);
 app.get("/api/topics", readTopics);
 app.get("/api/articles/:article_id", readArticlesById);
 app.get("/api/users", readUsers);

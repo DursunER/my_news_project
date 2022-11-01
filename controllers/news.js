@@ -1,4 +1,9 @@
-const { getTopics, getArticlesById, getUsers } = require("../models/news");
+const {
+  getTopics,
+  getArticlesById,
+  getUsers,
+  getArticles,
+} = require("../models/news");
 
 exports.readTopics = (req, res) => {
   getTopics().then((topics) => {
@@ -21,5 +26,11 @@ exports.readArticlesById = (req, res, next) => {
 exports.readUsers = (req, res) => {
   getUsers().then((users) => {
     res.status(200).send({ users });
+  });
+};
+
+exports.readArticles = (req, res) => {
+  getArticles().then((articles) => {
+    res.status(200).send({ articles });
   });
 };

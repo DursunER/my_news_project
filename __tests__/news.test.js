@@ -93,7 +93,6 @@ describe("GET", () => {
       .expect(200)
       .then((res) => {
         const articleList = res.body.articles;
-        console.log(">>", articleList);
         expect(articleList.length > 0).toBe(true);
 
         articleList.forEach((article) => {
