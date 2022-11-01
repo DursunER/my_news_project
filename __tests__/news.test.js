@@ -86,4 +86,25 @@ describe("GET", () => {
         });
       });
   });
+
+  test("/api/articles", () => {
+    return request(app)
+      .get("/api/articles")
+      .expect(200)
+      .then((res) => {
+        const articleList = res.body.articles;
+        console.log(">>", articleList);
+        expect(articleList.length > 0).toBe(true);
+
+        articleList.forEach((article) => {
+          expect(article).toHaveProperty("article_id");
+          expect(article).toHaveProperty("title");
+          expect(article).toHaveProperty("topic");
+          expect(article).toHaveProperty("author");
+          expect(article).toHaveProperty("body");
+          expect(article).toHaveProperty("created_at");
+          expect(article).toHaveProperty("votes");
+        });
+      });
+  });
 });
